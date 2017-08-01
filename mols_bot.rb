@@ -7,7 +7,7 @@ class Bot < SlackRubyBot::Bot
   # SUBREDDIT_BASE_URL = BASE_URL+'/r/'
   # DEFAULT_LIMIT = 10
 
-  match /^mols (?<size>\w*)\?$/ do |client, data, match|
+  match /^mols (?<size>\w*)$/ do |client, data, match|
     # client.say(channel: data.channel, text: "Computing orthogonal squares of size #{match[:size]}x#{match[:size]}. Will post in latin_squares channel")
     command = "docker service create \
     --constraint node.role==worker
@@ -18,6 +18,8 @@ class Bot < SlackRubyBot::Bot
     #{match[:size]} https://hooks.slack.com/services/#{ENV['MOLS_SLACK_API_KEY']}"
     system(command)
   end
+
+
 #
 #   command 'list' do |client, data, _match|
 #     input = parse_input(_match)
@@ -60,7 +62,7 @@ class Bot < SlackRubyBot::Bot
 #       text
 #     end
 #   end
-# end
+end
 
 SlackRubyBot::Client.logger.level = Logger::WARN
 
