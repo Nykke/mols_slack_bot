@@ -14,7 +14,7 @@ class Bot < SlackRubyBot::Bot
     --limit-cpu 2.5 \
     --no-resolve-image \
     --restart-condition none \
-    --name latin_squares champain/latin_squares:1.0 \
+    --name latin_squares champain/latin_squares:mols_bot \
     #{match[:size]} https://hooks.slack.com/services/#{ENV['MOLS_SLACK_API_KEY']}"
     system(command)
   end
