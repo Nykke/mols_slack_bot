@@ -1,0 +1,39 @@
+sudo: required
+
+language: ruby
+
+services:
+  - docker
+
+# env:
+#   - Docker_COMPOSE_VERSION=1.11.2
+#   global:
+#
+# before_install:
+#   - sudo rm /usr/local/bin/docker-compose
+#   - curl -L https://github.cm/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+#   - chmod +x docker-compose
+#   - sudo mv docker-compose /usr/local/bin
+
+# script:
+#   - bundle exec rspec spec/
+#
+# bundler_args: --binstubs=./bundler_stubs
+
+env:
+  global:
+    - DOCKER_USER=nykke
+    - secure: "Y5v9Y9o7UNHj/hpWRLZVtq/RWliae6PbWN5CDHbXKeO5N0jZppNIx1n35haH+CPjtfTXnm9Tj2Oq8NShIZiBGsskSWaykaxiEgAtWvepe1JoTRf1+BKIgVPLCx2Ne8BCI+Uy5p7M15TCbqqfgbBieYSOVC7QBLNjEidQjfY6YiCEdW2q2JqrflenjDGK5bkvpSiLht/vyW6RXENNpvKQLSj0rgce4KpNIplI/Zdx0eqnjLN0R5H5u/vxEeJ8ycUsEYxCw2Ue4/uEsVLoX++FQXC8UPrD2clkTec8IA3cuIO1sdj8sxEMdkBkcwM4FMsNR/wrsb/6qObsDq7UvTw/cY7Q/85RYXvaXi0JymNZm/OAwHtvX7zwnrcAZGFZzbXrLslqM5YQKhR6s/sJSY6q1gYBDXkBxKFulgXwtbTwxVXCYgPiCvCf1P3jZHqzVtBaN3/hgGetWOeHFFBwoZ4LOSb3trfCHWDAXji1JKxUq1a7Fev2heasfgvVu5jgivyYrZUZ/q1831kcNa2fBQdVvZTEXiqc4ULvrEXIFabvcSdmgIuXlA3+LCdBOxKarAzm0Uy9Fnyb4lye0TuHBaTJMsHpuDIwFBGjZS/+uJMLcFygFQJYOIByAyn2hCM0LjVoReKkDxx55CaLi6wMUPlx+1ifGESreib38RvS5HW7wbU="
+
+script:
+  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  - docker build -t nykke/mols_bot .
+
+after_success:
+  - >
+      if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+          docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
+          docker tag nykke/mols_bot nykke/mols_bot:latest
+          docker push nykke/mols_bot:latest
+          docker push nykke/mols_bot
+      fi
