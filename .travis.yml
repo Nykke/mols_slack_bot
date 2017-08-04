@@ -1,24 +1,10 @@
 sudo: required
 
 language: ruby
+rvm: "2.4.0"
 
 services:
   - docker
-
-# env:
-#   - Docker_COMPOSE_VERSION=1.11.2
-#   global:
-#
-# before_install:
-#   - sudo rm /usr/local/bin/docker-compose
-#   - curl -L https://github.cm/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-#   - chmod +x docker-compose
-#   - sudo mv docker-compose /usr/local/bin
-
-# script:
-#   - bundle exec rspec spec/
-#
-# bundler_args: --binstubs=./bundler_stubs
 
 env:
   global:
@@ -27,13 +13,13 @@ env:
 
 script:
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-  - docker build -t nykke/mols_bot .
+  - docker build -t nykke/ruby_raspbian .
 
 after_success:
   - >
       if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
           docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
-          docker tag nykke/mols_bot nykke/mols_bot:latest
-          docker push nykke/mols_bot:latest
-          docker push nykke/mols_bot
+          docker tag nykke/ruby_raspbian nykke/ruby_raspbian:latest
+          docker push nykke/ruby_raspbian:latest
+          docker push nykke/ruby_raspbian
       fi
