@@ -4,4 +4,4 @@ gem 'slack-ruby-bot'
 gem 'celluloid-io'
 gem 'httparty'
 gem 'giphy'
-
+gem 'rspec'
