@@ -10,7 +10,7 @@ RUN echo "deb [arch=armhf] https://download.docker.com/linux/debian \
     tee /etc/apt/sources.list.d/docker.list
 
 RUN apt-get update \
-&& apt-get install -y docker-ce
+&& apt-get install -y docker-ce \
 && apt-get install -y --no-install-recommends
 
 RUN bundle install
