@@ -14,13 +14,13 @@ env:
 
 script:
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-  - docker build -t nykke/ruby_raspbian .
+  - docker build -t nykke/mols_bot_raspbian .
 
 after_success:
   - >
       if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
           docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
-          docker tag nykke/ruby_raspbian nykke/ruby_raspbian:latest
-          docker push nykke/ruby_raspbian:latest
-          docker push nykke/ruby_raspbian
+          docker tag nykke/ruby_raspbian nykke/mols_bot_raspbian:latest
+          docker push nykke/mols_bot_raspbian:latest
+          docker push nykke/mols_bot_raspbian
       fi
