@@ -14,6 +14,9 @@ class Bot < SlackRubyBot::Bot
       client.say(channel: data.channel, text: "Computing orthogonal squares of size #{match[:size]}x#{match[:size]}. Will post in \#latin_squares channel")
       container_name = "latin_squares#{Random.new_seed}"
       puts "==============computing square of size #{match[:size]}============="
+      time1 = Time.new
+      puts "Current Time : " + time1.inspect
+      # puts "I was made on #{get_line_number}"
       command = "docker service create \
       --constraint node.role==worker \
       --limit-cpu 2.5 \
