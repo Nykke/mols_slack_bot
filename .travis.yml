@@ -15,6 +15,7 @@ env:
 script:
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - docker build -t nykke/mols_bot_raspbian .
+  - bundle exec rspec spec/
 
 after_success:
   - >
