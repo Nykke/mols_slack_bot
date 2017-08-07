@@ -3,7 +3,9 @@ FROM nykke/ruby_raspbian
 COPY  mols_bot.rb Gemfile /
 
 RUN apt-get update \
-	&& apt-get install -y --no-install-recommends
+&& apt-get install -y build-essential \
+&& apt-get install -y --no-install-recommends
+
 
 RUN bundle install
 
