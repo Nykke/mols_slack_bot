@@ -13,9 +13,10 @@ env:
     - secure: "Y5v9Y9o7UNHj/hpWRLZVtq/RWliae6PbWN5CDHbXKeO5N0jZppNIx1n35haH+CPjtfTXnm9Tj2Oq8NShIZiBGsskSWaykaxiEgAtWvepe1JoTRf1+BKIgVPLCx2Ne8BCI+Uy5p7M15TCbqqfgbBieYSOVC7QBLNjEidQjfY6YiCEdW2q2JqrflenjDGK5bkvpSiLht/vyW6RXENNpvKQLSj0rgce4KpNIplI/Zdx0eqnjLN0R5H5u/vxEeJ8ycUsEYxCw2Ue4/uEsVLoX++FQXC8UPrD2clkTec8IA3cuIO1sdj8sxEMdkBkcwM4FMsNR/wrsb/6qObsDq7UvTw/cY7Q/85RYXvaXi0JymNZm/OAwHtvX7zwnrcAZGFZzbXrLslqM5YQKhR6s/sJSY6q1gYBDXkBxKFulgXwtbTwxVXCYgPiCvCf1P3jZHqzVtBaN3/hgGetWOeHFFBwoZ4LOSb3trfCHWDAXji1JKxUq1a7Fev2heasfgvVu5jgivyYrZUZ/q1831kcNa2fBQdVvZTEXiqc4ULvrEXIFabvcSdmgIuXlA3+LCdBOxKarAzm0Uy9Fnyb4lye0TuHBaTJMsHpuDIwFBGjZS/+uJMLcFygFQJYOIByAyn2hCM0LjVoReKkDxx55CaLi6wMUPlx+1ifGESreib38RvS5HW7wbU="
 
 script:
+  - bundle exec rspec spec/
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - docker build -t nykke/mols_bot_raspbian .
-  - bundle exec rspec spec/
+
 
 after_success:
   - >
